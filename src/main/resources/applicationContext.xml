@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/data/mongo https://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+          http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:property-placeholder location="classpath:application.properties"/>
+    <mongo:mongo-client id="mongodb" connection-string="${spring.data.mongodb.uri}">
+        <mongo:client-settings socket-connect-timeout="1500" />
+    </mongo:mongo-client>
+    <mongo:auditing modify-on-creation="true"/>
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory">
+            <mongo:db-factory dbname="process_flow_db" mongo-client-ref="mongodb" />
+        </constructor-arg>
+        <property name="writeConcern" value="ACKNOWLEDGED" /> <!--写入策略=Acknowledged，服务器确认后才算写入成功-->
+        <property name="writeResultChecking" value="EXCEPTION" /> <!--写入策略=EXCEPTION，写入失败会抛出异常-->
+        <!--        <property name="entityCallbacks"-->
+    </bean>
+    <context:annotation-config />
+
+    <bean id="userRepository" class="org.springframework.data.mongodb.repository.support.MongoRepositoryFactoryBean">
+        <constructor-arg value="com.example.graphql.graphqldemo1.repository.MUserRepository"/>
+        <property name="mongoOperations" ref="mongoTemplate" />
+    </bean>
+    <bean id="jobRepository" class="org.springframework.data.mongodb.repository.support.MongoRepositoryFactoryBean">
+        <constructor-arg value="com.example.graphql.graphqldemo1.repository.JobRepository"/>
+        <property name="mongoOperations" ref="mongoTemplate" />
+    </bean>
+
+</beans>
