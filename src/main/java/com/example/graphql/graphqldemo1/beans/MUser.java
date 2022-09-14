@@ -1,4 +1,4 @@
-package com.example.graphql.graphqldemo1.dao;
+package com.example.graphql.graphqldemo1.beans;
 
 import com.example.graphql.graphqldemo1.enums.Gender;
 import lombok.EqualsAndHashCode;
@@ -23,7 +23,7 @@ import java.util.Date;
 @Document(value = "m_user")
 public class MUser {
     @Id
-    private String usrId;
+    private String id;
     @Indexed
     @Field("user_name")
     @Accessors(chain = true)

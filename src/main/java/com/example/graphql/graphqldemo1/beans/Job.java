@@ -1,4 +1,4 @@
-package com.example.graphql.graphqldemo1.dao;
+package com.example.graphql.graphqldemo1.beans;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,11 +18,11 @@ import java.math.BigDecimal;
 @Document(value = "job")
 public class Job {
     @Id
-    private String jobId;
+    private String id;
     @Field("job_name")
     @Accessors(chain = true)
-    private String jobName;
+    private String name;
     @Field("job_salary")
     @Accessors(chain = true)
-    private BigDecimal salary;
+    private Double jobSalary;
 }

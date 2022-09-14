@@ -1,0 +1,26 @@
+type Query {
+    user(usrName: String): MUser
+#    users: [MUser]
+#    job(name: String!): Job
+}
+
+#type Job {
+#    id: String!
+#    name: MUser!
+#    jobSalary: Float!
+#}
+
+type MUser {
+    id: String
+    usrName: String
+    usrGender: String
+    usrAge: Int!
+    joinDate: String
+    titles: [String]!
+#    job : Job
+}
+
+#type Mutation {
+#    addUser(name: String!, gender: String!, age: Int!, joinDate: String!, titles: [String!]!): MUser
+#    addJob(id: String!, name: String!, jobSalary: Float!): Job
+#}
